@@ -1,0 +1,453 @@
+{
+  "aedb_path": "D:\\OneDrive - ANSYS, Inc\\a-client-repositories\\quanta-cct-circuit-202508\\data\\Galileo_G87173_204_applied.aedb",
+  "reference_net": "GND",
+  "controller_components": [
+    "U2A5"
+  ],
+  "dram_components": [
+    "U1A1",
+    "U1B5"
+  ],
+  "ports": [
+    {
+      "sequence": 1,
+      "name": "1_U2A5_M_DQ<0>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<0>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 2,
+      "name": "2_U1B5_M_DQ<0>",
+      "component": "U1B5",
+      "component_role": "dram",
+      "net": "M_DQ<0>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 3,
+      "name": "3_U2A5_M_DQ<10>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<10>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 4,
+      "name": "4_U1A1_M_DQ<10>",
+      "component": "U1A1",
+      "component_role": "dram",
+      "net": "M_DQ<10>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 5,
+      "name": "5_U2A5_M_DQ<11>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<11>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 6,
+      "name": "6_U1A1_M_DQ<11>",
+      "component": "U1A1",
+      "component_role": "dram",
+      "net": "M_DQ<11>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 7,
+      "name": "7_U2A5_M_DQ<12>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<12>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 8,
+      "name": "8_U1A1_M_DQ<12>",
+      "component": "U1A1",
+      "component_role": "dram",
+      "net": "M_DQ<12>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 9,
+      "name": "9_U2A5_M_DQ<13>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<13>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 10,
+      "name": "10_U1A1_M_DQ<13>",
+      "component": "U1A1",
+      "component_role": "dram",
+      "net": "M_DQ<13>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 11,
+      "name": "11_U2A5_M_DQ<14>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<14>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 12,
+      "name": "12_U1A1_M_DQ<14>",
+      "component": "U1A1",
+      "component_role": "dram",
+      "net": "M_DQ<14>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 13,
+      "name": "13_U2A5_M_DQ<15>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<15>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 14,
+      "name": "14_U1A1_M_DQ<15>",
+      "component": "U1A1",
+      "component_role": "dram",
+      "net": "M_DQ<15>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 15,
+      "name": "15_U2A5_M_DQ<1>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<1>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 16,
+      "name": "16_U1B5_M_DQ<1>",
+      "component": "U1B5",
+      "component_role": "dram",
+      "net": "M_DQ<1>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 17,
+      "name": "17_U2A5_M_DQ<2>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<2>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 18,
+      "name": "18_U1B5_M_DQ<2>",
+      "component": "U1B5",
+      "component_role": "dram",
+      "net": "M_DQ<2>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 19,
+      "name": "19_U2A5_M_DQ<3>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<3>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 20,
+      "name": "20_U1B5_M_DQ<3>",
+      "component": "U1B5",
+      "component_role": "dram",
+      "net": "M_DQ<3>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 21,
+      "name": "21_U2A5_M_DQ<4>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<4>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 22,
+      "name": "22_U1B5_M_DQ<4>",
+      "component": "U1B5",
+      "component_role": "dram",
+      "net": "M_DQ<4>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 23,
+      "name": "23_U2A5_M_DQ<5>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<5>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 24,
+      "name": "24_U1B5_M_DQ<5>",
+      "component": "U1B5",
+      "component_role": "dram",
+      "net": "M_DQ<5>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 25,
+      "name": "25_U2A5_M_DQ<6>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<6>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 26,
+      "name": "26_U1B5_M_DQ<6>",
+      "component": "U1B5",
+      "component_role": "dram",
+      "net": "M_DQ<6>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 27,
+      "name": "27_U2A5_M_DQ<7>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<7>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 28,
+      "name": "28_U1B5_M_DQ<7>",
+      "component": "U1B5",
+      "component_role": "dram",
+      "net": "M_DQ<7>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 29,
+      "name": "29_U2A5_M_DQ<8>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<8>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 30,
+      "name": "30_U1A1_M_DQ<8>",
+      "component": "U1A1",
+      "component_role": "dram",
+      "net": "M_DQ<8>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 31,
+      "name": "31_U2A5_M_DQ<9>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQ<9>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 32,
+      "name": "32_U1A1_M_DQ<9>",
+      "component": "U1A1",
+      "component_role": "dram",
+      "net": "M_DQ<9>",
+      "net_type": "single",
+      "pair": null,
+      "polarity": null,
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 33,
+      "name": "33_U2A5_M_DQS_N<0>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQS_N<0>",
+      "net_type": "differential",
+      "pair": "DP_M_DQS0",
+      "polarity": "positive",
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 34,
+      "name": "34_U1B5_M_DQS_N<0>",
+      "component": "U1B5",
+      "component_role": "dram",
+      "net": "M_DQS_N<0>",
+      "net_type": "differential",
+      "pair": "DP_M_DQS0",
+      "polarity": "positive",
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 35,
+      "name": "35_U2A5_M_DQS<0>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQS<0>",
+      "net_type": "differential",
+      "pair": "DP_M_DQS0",
+      "polarity": "negative",
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 36,
+      "name": "36_U1B5_M_DQS<0>",
+      "component": "U1B5",
+      "component_role": "dram",
+      "net": "M_DQS<0>",
+      "net_type": "differential",
+      "pair": "DP_M_DQS0",
+      "polarity": "negative",
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 37,
+      "name": "37_U2A5_M_DQS_N<1>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQS_N<1>",
+      "net_type": "differential",
+      "pair": "DP_M_DQS1",
+      "polarity": "positive",
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 38,
+      "name": "38_U1A1_M_DQS_N<1>",
+      "component": "U1A1",
+      "component_role": "dram",
+      "net": "M_DQS_N<1>",
+      "net_type": "differential",
+      "pair": "DP_M_DQS1",
+      "polarity": "positive",
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 39,
+      "name": "39_U2A5_M_DQS<1>",
+      "component": "U2A5",
+      "component_role": "controller",
+      "net": "M_DQS<1>",
+      "net_type": "differential",
+      "pair": "DP_M_DQS1",
+      "polarity": "negative",
+      "reference_net": "GND"
+    },
+    {
+      "sequence": 40,
+      "name": "40_U1A1_M_DQS<1>",
+      "component": "U1A1",
+      "component_role": "dram",
+      "net": "M_DQS<1>",
+      "net_type": "differential",
+      "pair": "DP_M_DQS1",
+      "polarity": "negative",
+      "reference_net": "GND"
+    }
+  ]
+}
