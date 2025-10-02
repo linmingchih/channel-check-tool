@@ -1,10 +1,10 @@
-﻿import json
+import json
 import json
 import re
 import sys
 import traceback
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Tuple
+from typing import Dict, Iterable, List, Optional, Pattern, Tuple
 
 try:
     from PySide6.QtCore import Qt, QSettings, QObject, QThread, Signal
@@ -93,7 +93,8 @@ except ImportError:  # pragma: no cover - allow GUI without CCT backend
         base = base.strip()
         return f"{sequence}_{base}" if base else str(sequence)
 
-_COMPONENT_PATTERN = re.compile(r"^U\d+", re.IGNORECASE)
+COMPONENT_FILTER_SETTINGS_KEY = "ports/component_filter"
+DEFAULT_COMPONENT_FILTER = r"^[UJ]"
 
 try:
     DIFF_ROW_BRUSH = QBrush(QColor(230, 240, 255))
@@ -367,8 +368,12 @@ class EdbGui(QWidget):
         self._simulation_reference_net: Optional[str] = None
         self._cct_thread: Optional[QThread] = None
         self._cct_worker: Optional[_CctWorker] = None
+        self.component_filter_edit: Optional[QLineEdit] = None
+        self._component_filter_pattern_text: str = DEFAULT_COMPONENT_FILTER
+        self._component_filter_pattern: Optional[Pattern[str]] = re.compile(DEFAULT_COMPONENT_FILTER, re.IGNORECASE)
 
         self._build_ui()
+        self._restore_component_filter()
         self._restore_edb_version()
         self._restore_simulation_settings()
         self._restore_cct_settings()
@@ -425,8 +430,32 @@ class EdbGui(QWidget):
         self.status_output.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         main_layout.addWidget(self.status_output)
 
+    def _restore_component_filter(self) -> None:
+        stored = self._settings.value(COMPONENT_FILTER_SETTINGS_KEY, DEFAULT_COMPONENT_FILTER)
+        if not isinstance(stored, str):
+            stored = DEFAULT_COMPONENT_FILTER
+        stored = stored.strip()
+        if not self._set_component_filter(stored, persist=False, refresh=False, silence_errors=True):
+            fallback = DEFAULT_COMPONENT_FILTER
+            self._set_component_filter(fallback, persist=False, refresh=False, silence_errors=True)
+            stored = fallback
+        if self.component_filter_edit is not None:
+            self.component_filter_edit.blockSignals(True)
+            self.component_filter_edit.setText(stored)
+            self.component_filter_edit.setCursorPosition(len(stored))
+            self.component_filter_edit.blockSignals(False)
+
     def _build_port_tab(self, container: QWidget) -> None:
         layout = QVBoxLayout(container)
+
+        filter_layout = QHBoxLayout()
+        filter_layout.addWidget(QLabel("Component filter (regex):"))
+        self.component_filter_edit = QLineEdit()
+        self.component_filter_edit.setPlaceholderText("Regex (empty = all components)")
+        self.component_filter_edit.setClearButtonEnabled(True)
+        self.component_filter_edit.editingFinished.connect(self._on_component_filter_editing_finished)
+        filter_layout.addWidget(self.component_filter_edit, stretch=1)
+        layout.addLayout(filter_layout)
 
         selector_layout = QHBoxLayout()
 
@@ -1709,7 +1738,8 @@ class EdbGui(QWidget):
             self._populate_components()
             self._update_simulation_ui_state()
             self._set_status_message(
-                f"Loaded design with {len(self._components)} components (Uxxx)"
+                f"Loaded design with {len(self._components)} components "
+                f"(filter: {self._component_filter_description()})"
             )
         except Exception as exc:  # pragma: no cover - GUI feedback path
             self._show_error("Failed to load AEDB", exc)
@@ -1745,6 +1775,8 @@ class EdbGui(QWidget):
     def _populate_components(self) -> None:
         self.controller_list.blockSignals(True)
         self.dram_list.blockSignals(True)
+        controller_selected = set(self._selected_component_names(self.controller_list))
+        dram_selected = set(self._selected_component_names(self.dram_list))
         self.controller_list.clear()
         self.dram_list.clear()
         self._component_nets.clear()
@@ -1762,18 +1794,80 @@ class EdbGui(QWidget):
         filtered.sort(key=lambda item: (-item[2], item[0]))
 
         self._components = {name: comp for name, comp, _ in filtered}
+        target_lists = (
+            (self.controller_list, controller_selected),
+            (self.dram_list, dram_selected),
+        )
         for name, _, pin_count in filtered:
             nets = self._extract_net_names(self._components[name])
             self._component_nets[name] = nets
             label = f"{name} ({pin_count})"
-            for list_widget in (self.controller_list, self.dram_list):
+            for list_widget, selected_names in target_lists:
                 item = QListWidgetItem(label)
                 item.setData(Qt.UserRole, name)
                 list_widget.addItem(item)
+                if name in selected_names:
+                    item.setSelected(True)
 
         self.controller_list.blockSignals(False)
         self.dram_list.blockSignals(False)
         self._update_results()
+
+    def _component_filter_description(self) -> str:
+        return self._component_filter_pattern_text or "all components"
+
+    def _on_component_filter_editing_finished(self) -> None:
+        if self.component_filter_edit is None:
+            return
+        text = self.component_filter_edit.text()
+        previous = self._component_filter_pattern_text
+        if self._set_component_filter(text):
+            description = self._component_filter_description()
+            self._set_status_message(
+                f"Component filter applied: {description} ({len(self._components)} components matching)"
+            )
+        else:
+            self.component_filter_edit.blockSignals(True)
+            self.component_filter_edit.setText(previous)
+            self.component_filter_edit.setCursorPosition(len(previous))
+            self.component_filter_edit.blockSignals(False)
+
+    def _set_component_filter(
+        self,
+        pattern_text: str,
+        *,
+        persist: bool = True,
+        refresh: bool = True,
+        silence_errors: bool = False,
+    ) -> bool:
+        text = (pattern_text or "").strip()
+        if text == self._component_filter_pattern_text:
+            if persist:
+                self._settings.setValue(COMPONENT_FILTER_SETTINGS_KEY, text)
+            return True
+        if text:
+            try:
+                compiled = re.compile(text, re.IGNORECASE)
+            except re.error as exc:
+                if not silence_errors:
+                    self._show_component_filter_error(text, exc)
+                return False
+        else:
+            compiled = None
+        self._component_filter_pattern_text = text
+        self._component_filter_pattern = compiled
+        if persist:
+            self._settings.setValue(COMPONENT_FILTER_SETTINGS_KEY, text)
+        if refresh:
+            self._populate_components()
+        return True
+
+    def _show_component_filter_error(self, pattern_text: str, exc: re.error) -> None:
+        QMessageBox.warning(
+            self,
+            "Invalid Component Filter",
+            f"Could not apply regex '{pattern_text}': {exc}",
+        )
 
     def _update_results(self) -> None:
         self.single_list.clear()
@@ -2417,9 +2511,11 @@ class EdbGui(QWidget):
         except TypeError:
             return sum(1 for _ in getattr(pins, "values", lambda: [])())
 
-    @staticmethod
-    def _matches_component_pattern(name: str) -> bool:
-        return bool(_COMPONENT_PATTERN.match(name))
+    def _matches_component_pattern(self, name: str) -> bool:
+        pattern = self._component_filter_pattern
+        if pattern is None:
+            return True
+        return bool(pattern.search(name))
 
     def _show_error(self, title: str, exc: Exception) -> None:
         details = "".join(traceback.format_exception(exc))
