@@ -15,7 +15,7 @@ Channel Check Tool（CCT）協助進行 DDR 與其他高速通道的電氣驗證
 - `src/cct.py`：處理中繼資料、電路生成、模擬與後處理的核心邏輯。
 - `src/aedb_gui.py`：PySide GUI 與封裝 CCT 後端的背景工作。 
 - `src/run.py`：建立虛擬環境並安裝相依套件的 Python 輔助腳本。
-- `src/1_pre_process.py`：使用 pyedb/pyaedt 建立 cutout 與輸出 Touchstone 的範例程式。
+
 - `run.bat`／`install.bat`：Windows 平台上的安裝與啟動批次檔。
 - `data/`：範例資料，包含 `.aedb`、`.sNp` 與 `*_ports.json`。
 
@@ -43,13 +43,7 @@ Channel Check Tool（CCT）協助進行 DDR 與其他高速通道的電氣驗證
 - 啟用剪枝時，篩選後的 Touchstone 會輸出至 `trimmed_touchstone/`。
 - 波形統計與 Tx/Rx 對應資訊會以 JSON 格式輸出，供後續分析。
 
-## EDB 前處理
-- `src/1_pre_process.py` 範例示範如何：
-  - 自 BRD/EDB 專案篩選指定元件與網路。
-  - 為每個連接埠建立 50 歐姆參考的 pin group。
-  - 定義線性與對數頻率掃描並儲存新的 `.aedb` 專案。
-  - 使用 `pyaedt.Hfss3dLayout` 自動求解並匯出 Touchstone。
-- 可依需求調整 `cct_comps`、`gnds` 以及正則表達式，以符合實際硬體。
+
 
 ## 開發者備註
 - 建議在虛擬環境中執行 Python 指令：`".venv\Scripts\python" some_script.py`。
