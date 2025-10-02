@@ -1,9 +1,11 @@
-@echo off
+﻿@echo off
 setlocal
 
 set "SCRIPT_DIR=%~dp0"
 set "VENV_DIR=%SCRIPT_DIR%.venv"
 set "PYTHON_EXE=%VENV_DIR%\Scripts\python.exe"
+set "UV_EXE=%VENV_DIR%\Scripts\uv.exe"
+set "REQUIREMENTS_FILE=%SCRIPT_DIR%requirements.txt"
 
 set "BOOTSTRAP_PY="
 where py >nul 2>nul && set "BOOTSTRAP_PY=py"
@@ -31,22 +33,26 @@ if not exist "%PYTHON_EXE%" (
     exit /b 1
 )
 
-"%PYTHON_EXE%" -m pip install --upgrade pip setuptools wheel
+"%PYTHON_EXE%" -m pip install --upgrade pip setuptools wheel uv
 if errorlevel 1 (
-    echo Failed to upgrade packaging tools in the virtual environment.
+    echo Failed to upgrade packaging tools or install uv in the virtual environment.
     exit /b 1
 )
 
-if exist "%SCRIPT_DIR%requirements.txt" (
-    "%PYTHON_EXE%" -m pip install -r "%SCRIPT_DIR%requirements.txt"
+if not exist "%UV_EXE%" (
+    echo uv was not found after installation.
+    exit /b 1
+)
+
+if exist "%REQUIREMENTS_FILE%" (
+    "%UV_EXE%" pip install -r "%REQUIREMENTS_FILE%"
 ) else (
-    "%PYTHON_EXE%" -m pip install "pyedb>=0.6.0" "PySide6>=6.5" "pyaedt" "numpy>=1.24" "scikit-rf"
+    "%UV_EXE%" pip install "pyedb>=0.6.0" "PySide6>=6.5" "pyaedt" "numpy>=1.24" "scikit-rf"
 )
 if errorlevel 1 (
-    echo Failed to install required Python packages.
+    echo Failed to install required Python packages with uv.
     exit /b 1
 )
 
 echo Virtual environment setup complete.
 exit /b 0
-
